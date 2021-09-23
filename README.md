@@ -32,12 +32,18 @@ useEffect vs useLayoutEffect
 
 Hook(useEffect)과 클래스형 컴포넌트의 생명주기(didMount, didUpdate, WillUnmount)는 유사하지만, 동일하진 않다.
 
-    			동기(Synchronous)	동작 순서												장점									  단점						  	   사용 예시
+useEffect
+		 	1. 동기 :  비동기적 
+			2. 동작 순서 :  DOM의 레이아웃 배치(render) 와 페인트가 끝난 후 실행 
+			3. 장점 : useLayoutEffect에 비해 레이아웃을 빨리 그린다. 
+			4. 단점 : 업데이트 되기 전 상태를 보게된다. 
+			5. 사용 예시 : 데이터 fetch, event handler, state reset
+			결론 : DOM을 변형시키지 않는 대부분의 경우에 사용한다.
 
-useEffect 비동기적 DOM의 레이아웃 배치(render) 와 페인트가 끝난 후 실행 useLayoutEffect에 비해 레이아웃을 빨리 그린다. 업데이트 되기 전 상태를 보게된다. 데이터 fetch, event handler, state reset
-useLayoutEffect 동기적 DOM의 레이아웃 배치(render)가 실행된 후 paint가 되기 전에 실행 사용자가 업데이트 되기 전의 화면을 보지 않게된다. 로직이 복잡할 경우 사용자가 레이아웃을
-보는데 까지 시간이 오래걸린다. 그외의 상황(화면이 깜박거릴때)
-
-결론(사용 상황)
-useEffect - DOM을 변형시키지 않는 대부분의 경우에 사용한다.
-useLayoutEffect - 사용자에게 노출되는 DOM을 변형시킬 때 사용하면 효율적이다.
+useLayoutEffect
+			1. 동기 :  동기적 
+			2. 동작 순서 :  DOM의 레이아웃 배치(render)가 실행된 후 paint가 되기 전에 실행 
+			3. 장점 : 사용자가 업데이트 되기 전의 화면을 보지 않게된다.
+			4. 단점 : 로직이 복잡할 경우 사용자가 레이아웃을 보는데 까지 시간이 오래걸린다. 
+			5. 사용 예시 : 그외의 상황(화면이 깜박거릴때)
+			결론 : 사용자에게 노출되는 DOM을 변형시킬 때 사용하면 효율적이다.
